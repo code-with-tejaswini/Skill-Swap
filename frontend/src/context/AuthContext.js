@@ -3,8 +3,9 @@ import axios from "axios";
 
 const AuthContext = createContext(null);
 
-const API_BASE =
+const API_HOST =
   process.env.REACT_APP_API_URL || "https://skill-swap-s01i.onrender.com";
+const API_BASE = API_HOST.replace(/\/$/, "").replace(/\/api$/, "") + "/api";
 
 // Axios instance
 export const api = axios.create({ baseURL: API_BASE });
@@ -41,7 +42,7 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   const login = async (email, password) => {
-    const { data } = await api.post("/api/auth/login", { email, password });
+    const { data } = await api.post("/auth/login", { email, password });
     localStorage.setItem("skillswap_token", data.token);
     localStorage.setItem("skillswap_user", JSON.stringify(data.user));
     setUser(data.user);
@@ -49,7 +50,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   const register = async (formData) => {
-    const { data } = await api.post("/api/auth/register", formData);
+    const { data } = await api.post("/auth/register", formData);
     localStorage.setItem("skillswap_token", data.token);
     localStorage.setItem("skillswap_user", JSON.stringify(data.user));
     setUser(data.user);

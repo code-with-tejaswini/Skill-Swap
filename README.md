@@ -52,6 +52,7 @@ skillswap/
 ## 🚀 Getting Started
 
 ### Prerequisites
+
 - Node.js v16+
 - MongoDB (local or [MongoDB Atlas](https://www.mongodb.com/cloud/atlas))
 - npm or yarn
@@ -66,6 +67,7 @@ npm install
 ```
 
 Edit `.env` with your settings:
+
 ```env
 PORT=5000
 MONGODB_URI=mongodb://localhost:27017/skillswap
@@ -74,6 +76,7 @@ JWT_EXPIRE=7d
 ```
 
 Start the server:
+
 ```bash
 # Development (with auto-reload)
 npm run dev
@@ -82,7 +85,7 @@ npm run dev
 npm start
 ```
 
-Backend runs at: `http://localhost:5000`
+Backend runs at: `https://skill-swap-s01i.onrender.com`
 
 ---
 
@@ -96,52 +99,57 @@ npm start
 
 Frontend runs at: `http://localhost:3000`
 
-> The frontend uses `"proxy": "http://localhost:5000"` in `package.json`, so API calls work automatically.
+> The frontend uses `"proxy": "https://skill-swap-s01i.onrender.com"` in `package.json`, so API calls work automatically.
 
 ---
 
 ## 📡 API Reference
 
 ### Auth
-| Method | Endpoint | Auth | Description |
-|--------|----------|------|-------------|
-| POST | `/api/auth/register` | No | Register new user |
-| POST | `/api/auth/login` | No | Login & get JWT |
-| GET | `/api/auth/me` | Yes | Get current user |
+
+| Method | Endpoint             | Auth | Description       |
+| ------ | -------------------- | ---- | ----------------- |
+| POST   | `/api/auth/register` | No   | Register new user |
+| POST   | `/api/auth/login`    | No   | Login & get JWT   |
+| GET    | `/api/auth/me`       | Yes  | Get current user  |
 
 ### Users
-| Method | Endpoint | Auth | Description |
-|--------|----------|------|-------------|
-| GET | `/api/users` | Yes | All users (paginated) |
-| GET | `/api/users/search?skill=X` | Yes | Search by skill |
-| GET | `/api/users/matches` | Yes | Smart complementary matches |
-| GET | `/api/users/:id` | Yes | Get user profile |
-| PUT | `/api/users/profile` | Yes | Update own profile |
-| PUT | `/api/users/skills` | Yes | Update teach/learn skills |
+
+| Method | Endpoint                    | Auth | Description                 |
+| ------ | --------------------------- | ---- | --------------------------- |
+| GET    | `/api/users`                | Yes  | All users (paginated)       |
+| GET    | `/api/users/search?skill=X` | Yes  | Search by skill             |
+| GET    | `/api/users/matches`        | Yes  | Smart complementary matches |
+| GET    | `/api/users/:id`            | Yes  | Get user profile            |
+| PUT    | `/api/users/profile`        | Yes  | Update own profile          |
+| PUT    | `/api/users/skills`         | Yes  | Update teach/learn skills   |
 
 ### Requests
-| Method | Endpoint | Auth | Description |
-|--------|----------|------|-------------|
-| POST | `/api/requests` | Yes | Send skill swap request |
-| GET | `/api/requests/all` | Yes | Get all my requests |
-| GET | `/api/requests/sent` | Yes | Get sent requests |
-| GET | `/api/requests/received` | Yes | Get received requests |
-| PUT | `/api/requests/:id/accept` | Yes | Accept request |
-| PUT | `/api/requests/:id/reject` | Yes | Reject request |
-| PUT | `/api/requests/:id/complete` | Yes | Mark as completed |
+
+| Method | Endpoint                     | Auth | Description             |
+| ------ | ---------------------------- | ---- | ----------------------- |
+| POST   | `/api/requests`              | Yes  | Send skill swap request |
+| GET    | `/api/requests/all`          | Yes  | Get all my requests     |
+| GET    | `/api/requests/sent`         | Yes  | Get sent requests       |
+| GET    | `/api/requests/received`     | Yes  | Get received requests   |
+| PUT    | `/api/requests/:id/accept`   | Yes  | Accept request          |
+| PUT    | `/api/requests/:id/reject`   | Yes  | Reject request          |
+| PUT    | `/api/requests/:id/complete` | Yes  | Mark as completed       |
 
 ### Reviews
-| Method | Endpoint | Auth | Description |
-|--------|----------|------|-------------|
-| POST | `/api/reviews` | Yes | Submit review (completed exchanges only) |
-| GET | `/api/reviews/user/:userId` | Yes | Get reviews for a user |
-| GET | `/api/reviews/given` | Yes | Reviews I've given |
+
+| Method | Endpoint                    | Auth | Description                              |
+| ------ | --------------------------- | ---- | ---------------------------------------- |
+| POST   | `/api/reviews`              | Yes  | Submit review (completed exchanges only) |
+| GET    | `/api/reviews/user/:userId` | Yes  | Get reviews for a user                   |
+| GET    | `/api/reviews/given`        | Yes  | Reviews I've given                       |
 
 ---
 
 ## 🗄️ Database Schemas
 
 ### User
+
 ```js
 {
   name: String,           // required
@@ -159,6 +167,7 @@ Frontend runs at: `http://localhost:3000`
 ```
 
 ### Request
+
 ```js
 {
   senderId: ObjectId,     // ref: User
@@ -172,6 +181,7 @@ Frontend runs at: `http://localhost:3000`
 ```
 
 ### Review
+
 ```js
 {
   reviewerId: ObjectId,   // ref: User (who wrote it)
@@ -201,15 +211,15 @@ Frontend runs at: `http://localhost:3000`
 
 ## 🛠 Tech Stack
 
-| Layer | Technology |
-|-------|------------|
-| Frontend | React 18, React Router v6 |
-| Styling | Custom CSS (design tokens, dark theme) |
-| HTTP Client | Axios with interceptors |
-| Backend | Node.js, Express 4 |
-| Database | MongoDB with Mongoose |
-| Auth | JWT + bcryptjs |
-| Dev Tools | nodemon |
+| Layer       | Technology                             |
+| ----------- | -------------------------------------- |
+| Frontend    | React 18, React Router v6              |
+| Styling     | Custom CSS (design tokens, dark theme) |
+| HTTP Client | Axios with interceptors                |
+| Backend     | Node.js, Express 4                     |
+| Database    | MongoDB with Mongoose                  |
+| Auth        | JWT + bcryptjs                         |
+| Dev Tools   | nodemon                                |
 
 ---
 

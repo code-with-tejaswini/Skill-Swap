@@ -1,4 +1,5 @@
 const express = require("express");
+const path = require("path");
 const mongoose = require("mongoose");
 const cors = require("cors");
 require("dotenv").config();
@@ -42,7 +43,20 @@ app.use((err, req, res, next) => {
   });
 });
 
-// ✅ 404 handler
+// ✅ Serve frontend in production and fallback for client-side routes
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static(path.join(__dirname, "../frontend/build")));
+
+  app.get("*", (req, res, next) => {
+    if (req.method !== "GET" || req.originalUrl.startsWith("/api")) {
+      return next();
+    }
+
+    res.sendFile(path.join(__dirname, "../frontend/build", "index.html"));
+  });
+}
+
+// ✅ 404 handler for API or other missing routes
 app.use((req, res) => {
   res.status(404).json({ success: false, message: "Route not found" });
 });
